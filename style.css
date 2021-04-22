@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+#mapid {
+  height: 55vh;
+  max-width: 55vw;
+  margin: 0 auto;
+}
+
+#mapid:hover {
+  cursor: crosshair;
+}
+
+.svg-icon {
+  width: 2em;
+  height: 2em;
+  margin-left: 10px;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.intro {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.instructions {
+  margin: -10px 0 50px 50px;
+  display: inline-block;
+}
+
+.instructions-title {
+  margin-bottom: 10px;
+}
+
+#location {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}

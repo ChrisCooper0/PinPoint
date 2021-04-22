@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PinPoint</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>PinPoint</h1>
+      <svg class="svg-icon" viewBox="0 0 20 20">
+        <path
+          fill="none"
+          d="M10,0.186c-3.427,0-6.204,2.778-6.204,6.204c0,5.471,6.204,6.806,6.204,13.424c0-6.618,6.204-7.953,6.204-13.424C16.204,2.964,13.427,0.186,10,0.186z M10,14.453c-0.66-1.125-1.462-2.076-2.219-2.974C6.36,9.797,5.239,8.469,5.239,6.39C5.239,3.764,7.374,1.63,10,1.63c2.625,0,4.761,2.135,4.761,4.761c0,2.078-1.121,3.407-2.541,5.089C11.462,12.377,10.66,13.328,10,14.453z"
+        ></path>
+        <circle fill="none" cx="10" cy="5.67" r="1.608"></circle>
+      </svg>
+    </div>
+    <div class="intro">
+      <p>How close can you pin to the location?</p>
+      <br />
+      <p>Press <button type="button" id="btn">START</button> to play!</p>
+      <p id="location"></p>
+    </div>
+    <div class="instructions">
+      <h3 class="instructions-title">How to play:</h3>
+      <ol>
+        <li>
+          Press the <button type="buton" disabled>START</button> button to begin
+        </li>
+        <li>The aim is to pin-point as close to the location as possible</li>
+        <li>You can click and drag or zoom in/out if you need to</li>
+        <li>When you want to lock in your choice, click once</li>
+        <li>See how close you were and play again!</li>
+      </ol>
+    </div>
+    <div id="mapid"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

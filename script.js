@@ -31,18 +31,17 @@ let locationObj = {
   },
 };
 
-// Sets the random location to a variable
-let randomLocation = Object.keys(locationObj)[
-  Math.floor(Math.random() * Object.keys(locationObj).length)
-];
-
-// Displays random location (key) when START button is clicked
+// Displays random location (locationObj key) when START button is clicked
 function updateUI() {
   const addLocation = document.getElementById("location");
   const button = document.getElementById("btn");
   const refreshBtn = document.getElementById("refreshBtn");
 
   button.addEventListener("click", () => {
+    // Sets the random location to a variable
+    let randomLocation = Object.keys(locationObj)[
+      Math.floor(Math.random() * Object.keys(locationObj).length)
+    ];
     addLocation.textContent = `${randomLocation}`;
     // Removes START button
     button.classList.add("display");

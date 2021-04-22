@@ -21,34 +21,10 @@ let locationObj = {
     Lat: 51.5079,
     Lng: -0.0877,
   },
-  //   "Harrods Department Store": {
-  //     Lat: 333,
-  //     Lng: 444,
-  //   },
-  //   "Marble Arch": {
-  //     Lat: 555,
-  //     Lng: 666,
-  //   },
-  //   "Downing Street": {
-  //     Lat: 777,
-  //     Lng: 888,
-  //   },
-  //   "Houses of Parliament": {
-  //     Lat: 1234,
-  //     Lng: 4567,
-  //   },
-  //   "New Scotland Yard": {
-  //     Lat: 1234,
-  //     Lng: 4567,
-  //   },
-  //   "Big Ben": {
-  //     Lat: 1234,
-  //     Lng: 4567,
-  //   },
-  //   "London Eye": {
-  //     Lat: 1234,
-  //     Lng: 4567,
-  //   },
+  "London Eye": {
+    Lat: 51.5033,
+    Lng: -0.1196,
+  },
 };
 
 // Returns random locationObj key (location name)
@@ -56,16 +32,6 @@ let randomLocationObjKey = function (obj) {
   let keys = Object.keys(obj);
   return Object.keys(locationObj)[
     Math.floor(Math.random() * Object.keys(locationObj).length)
-  ];
-};
-
-// Returns random locationObj value (location coordinates)
-let randomLocationObjValue = function (obj) {
-  let keys = Object.keys(obj);
-  return locationObj[
-    Object.keys(locationObj)[
-      Math.floor(Math.random() * Object.keys(locationObj).length)
-    ]
   ];
 };
 
@@ -78,8 +44,12 @@ function updateUI() {
     addLocation.textContent = `${randomLocationObjKey(
       location
     )} - Coordinates: `;
+    // Add the randomLocationObj coordinates to above
   });
 }
+
+// Also need the randomLocationObj coordinates to split and check against clickedCoordinates
+
 updateUI();
 
 // Popup of clicked coordinates on map
@@ -98,21 +68,30 @@ function onMapClick(e) {
   let randomLat = clickedLat;
   let randomLng = clickedLng;
 
-  // Check if clickedCoordinates and randomLocationObjValue match lat && lng
+  // Check if coordinates match
+  // Checks if both coordinates fully match
   if (clickedLat === randomLat && clickedLng === randomLng) {
     console.log("Winner! The coordinates match!");
     // alert("Winner! The coordinates match!");
-  } else if (clickedLat === randomLat && clickedLng !== randomLng) {
+  }
+  // Checks if only the latitude matches
+  else if (clickedLat === randomLat && clickedLng !== randomLng) {
     console.log("The Latitude matches! Try again to match the Longitude!");
-  } else if (clickedLng === randomLng && clickedLat != randomLat) {
+  } // Check if only the longitude matches
+  else if (clickedLng === randomLng && clickedLat != randomLat) {
     console.log("The Longitude matches! Try again to match the Latitude!");
-  } else if (
+  }
+  // Checks if the latitude or longitude match to the nearest 2 decimal place
+  else if (
     clickedLat.toFixed(2) === randomLat.toFixed(2) ||
     clickedLng.toFixed(2) === randomLng.toFixed(2)
   ) {
     console.log("That was close, try again!");
-  } else {
+  } // Else returns does not match
+  else {
     console.log("That was not even close! Try again!");
   }
 }
 mymap.on("click", onMapClick);
+
+// Add functionality to re-set to default after each guess (click)

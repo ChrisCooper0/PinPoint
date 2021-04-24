@@ -23,6 +23,11 @@
     ></script>
   </head>
   <body>
+    <div class="toggle-container">
+      <input type="checkbox" id="switch" name="theme" /><label for="switch"
+        >Toggle</label
+      >
+    </div>
     <div class="wrapper">
       <h1>PinPoint</h1>
       <svg class="svg-icon" viewBox="0 0 20 20">
@@ -36,8 +41,8 @@
     <div class="intro">
       <p>How close can you pin to the location?</p>
       <br />
-      <button type="button" id="btn">START</button>
-      <button type="button" id="refreshBtn" class="display">TRY AGAIN</button>
+      <button class="button" type="button" id="btn">START</button>
+      <button class="display" type="button" id="refreshBtn">TRY AGAIN</button>
 
       <p id="location"></p>
       <p id="coordinates"></p>
@@ -46,12 +51,14 @@
       <h3 class="instructions-title">How to play:</h3>
       <ol>
         <li>
-          Press the <button type="buton" disabled>START</button> button to begin
+          Press the
+          <button type="buton" class="mutedButton" disabled>START</button>
+          button to begin
         </li>
         <li>The aim is to pin-point as close to the location as possible</li>
         <li>You can click and drag on the map or zoom in/out</li>
         <li>When you want to lock in your choice, click once</li>
-        <li>See how close you were and play again!</li>
+        <li>See how close you were, click again or play again!</li>
       </ol>
     </div>
     <div id="mapid"></div>

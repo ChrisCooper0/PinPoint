@@ -1,6 +1,7 @@
 // Initialise map and starting coordinates
-const startingCoordinates = [51.509865, -0.118092];
-var mymap = L.map("mapid").setView(startingCoordinates, 13);
+let startingCoordinates = [51.509865, -0.118092];
+let mymap = L.map("mapid").setView(startingCoordinates, 13);
+
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
@@ -14,6 +15,58 @@ L.tileLayer(
       "pk.eyJ1IjoiY2hyaXNjb29wZXIwIiwiYSI6ImNrbnNyYnpqNzJmaTQybnByeWd1YzZwZWUifQ._ShUttBF_X0kxq4UWE8NmA",
   }
 ).addTo(mymap);
+
+// Toggle dark/light theme
+let checkbox = document.querySelector("input[name=theme]");
+let button = document.getElementById("btn");
+let refreshBtn = document.getElementById("refreshBtn");
+
+checkbox.addEventListener("change", function () {
+  if (this.checked) {
+    transition();
+    document.documentElement.setAttribute("data-theme", "dark");
+    button.classList.remove("buttonlight");
+    refreshBtn.classList.remove("buttonlight");
+    button.classList.add("buttondark");
+    refreshBtn.classList.add("buttondark");
+
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        id: "mapbox/dark-v9",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiY2hyaXNjb29wZXIwIiwiYSI6ImNrbnNyYnpqNzJmaTQybnByeWd1YzZwZWUifQ._ShUttBF_X0kxq4UWE8NmA",
+      }
+    ).addTo(mymap);
+  } else {
+    transition();
+    document.documentElement.setAttribute("data-theme", "light");
+    button.classList.remove("buttondark");
+    refreshBtn.classList.remove("buttondark");
+    button.classList.add("buttonlight");
+    refreshBtn.classList.add("buttonlight");
+
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        id: "mapbox/light-v9",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiY2hyaXNjb29wZXIwIiwiYSI6ImNrbnNyYnpqNzJmaTQybnByeWd1YzZwZWUifQ._ShUttBF_X0kxq4UWE8NmA",
+      }
+    ).addTo(mymap);
+  }
+});
+
+let transition = () => {
+  document.documentElement.classList.add("transition");
+  window.setTimeout(() => {
+    document.documentElement.classList.remove("transition");
+  }, 1000);
+};
 
 // Location array with Names and Lat/Lng coordinates
 let locationArr = [
@@ -96,7 +149,7 @@ function updateUI() {
     // Displays TRY AGAIN button
     refreshBtn.classList.remove("display");
 
-    // Refreshes page to display "START" button again when clicked
+    // Refreshes page to display START button
     refreshBtn.addEventListener("click", () => {
       location.reload();
       return false;

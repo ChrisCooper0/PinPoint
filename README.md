@@ -6,5 +6,4 @@
 
 ### // TO DO
 ### // Clean up and refactor functions to ES6+
-### // Update UI using Scss and compile back to CSS
 ### // Add functionality for markers to show distance between random location and clicked location

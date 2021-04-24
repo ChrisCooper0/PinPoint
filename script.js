@@ -15,89 +15,145 @@ L.tileLayer(
   }
 ).addTo(mymap);
 
-// Location object wth names and Lat/Lng coordinates
-let locationObj = {
-  "London Bridge": {
+// Location array with Names and Lat/Lng coordinates
+let locationArr = [
+  {
+    Name: "London Bridge",
     Lat: 51.5079,
     Lng: -0.0877,
   },
-  "London Eye": {
+  {
+    Name: "London Eye",
     Lat: 51.5033,
     Lng: -0.1196,
   },
-  "Trafalgar Square": {
+  {
+    Name: "Trafalgur Square",
     Lat: 51.508,
     Lng: -0.1281,
   },
-};
+  {
+    Name: "Big Ben",
+    Lat: 51.5007,
+    Lng: -0.1246,
+  },
+  {
+    Name: "Buckingham Palace",
+    Lat: 51.5014,
+    Lng: -0.1419,
+  },
+  {
+    Name: "St Paul's Cathedral",
+    Lat: 51.5138,
+    Lng: -0.0984,
+  },
+  {
+    Name: "Palace of Westminster",
+    Lat: 51.4995,
+    Lng: -0.1248,
+  },
+];
 
 // Displays random location (locationObj key) when START button is clicked
 function updateUI() {
   const addLocation = document.getElementById("location");
+  const addCoordinates = document.getElementById("coordinates");
   const button = document.getElementById("btn");
   const refreshBtn = document.getElementById("refreshBtn");
 
   button.addEventListener("click", () => {
-    // Sets the random location to a variable
-    let randomLocation = Object.keys(locationObj)[
-      Math.floor(Math.random() * Object.keys(locationObj).length)
-    ];
+    // Get random number from array length
+    let randomNumber = Math.floor(Math.random() * locationArr.length);
+
+    // Set random location name to variable
+    let randomLocation = locationArr[randomNumber].Name;
+
+    // Set and store randomLat/Lng to 4 decimal places
+    let randomLat4DP = locationArr[randomNumber].Lat.toFixed(4);
+    let randomLng4DP = locationArr[randomNumber].Lng.toFixed(4);
+
+    // Set and store randomLat/Lng to 3 decimal places
+    let randomLat3DP = locationArr[randomNumber].Lat.toFixed(3);
+    let randomLng3DP = locationArr[randomNumber].Lng.toFixed(3);
+
+    // Set and store randomLat/Lng to 2 decimal places
+    let randomLat2DP = locationArr[randomNumber].Lat.toFixed(2);
+    let randomLng2DP = locationArr[randomNumber].Lng.toFixed(2);
+
+    // Set and store randomLat/Lng to 1 decimal place
+    let randomLat1DP = locationArr[randomNumber].Lat.toFixed(1);
+    let randomLng1DP = locationArr[randomNumber].Lng.toFixed(1);
+
+    // Display random location name
     addLocation.textContent = `${randomLocation}`;
+
+    // Display random location coordinates
+    addCoordinates.textContent = `${randomLat3DP}, ${randomLng3DP}`;
+
     // Removes START button
     button.classList.add("display");
 
     // Displays TRY AGAIN button
     refreshBtn.classList.remove("display");
+
     // Refreshes page to display "START" button again when clicked
     refreshBtn.addEventListener("click", () => {
       location.reload();
       return false;
     });
+
+    // Pop-up of clicked coordinates on map
+    let popup = L.popup();
+    function onMapClick(e) {
+      // Return coordinates of click on map
+      let clickedCoordinates = e.latlng;
+      let clickedLat = clickedCoordinates[Object.keys(clickedCoordinates)[0]];
+      let clickedLng = clickedCoordinates[Object.keys(clickedCoordinates)[1]];
+
+      // Displays popup of coordinates clicked on map
+      popup
+        .setLatLng(e.latlng)
+        .setContent(
+          `You clicked the map at ${clickedLat.toFixed(
+            3
+          )}, ${clickedLng.toFixed(3)}`
+        )
+        .openOn(mymap);
+
+      if (
+        clickedLat.toFixed(4) === randomLat4DP &&
+        clickedLng.toFixed(4) === randomLng4DP
+      ) {
+        alert("Winner! The coordinates match to four decimal places!");
+      }
+      // Checks if both coordinates match to 3 decimal places
+      else if (
+        clickedLat.toFixed(3) === randomLat3DP &&
+        clickedLng.toFixed(3) === randomLng3DP
+      ) {
+        alert("Winner! The coordinates match to three decimal places!");
+      }
+      // Checks if the latitude or longitude match to 2 decimal places
+      else if (
+        clickedLat.toFixed(2) === randomLat2DP ||
+        clickedLng.toFixed(2) === randomLng2DP
+      ) {
+        alert("Close! The coordinates match to two decimal places!");
+      }
+      // Checks if the latitude or longitude match to 1 decimal place
+      else if (
+        clickedLat.toFixed(1) === randomLat1DP ||
+        clickedLng.toFixed(1) === randomLng1DP
+      ) {
+        alert("Try again!");
+      }
+      // Else returns does not match
+      else {
+        alert("Try again!");
+      }
+    }
+    mymap.on("click", onMapClick);
   });
 }
 
 updateUI();
-
-// Pop-up of clicked coordinates on map
-let popup = L.popup();
-function onMapClick(e) {
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString())
-    .openOn(mymap);
-  // Return coordinates of click on map
-  let clickedCoordinates = e.latlng;
-  let clickedLat = clickedCoordinates[Object.keys(clickedCoordinates)[0]];
-  let clickedLng = clickedCoordinates[Object.keys(clickedCoordinates)[1]];
-
-  //Change randomLat & randomLng
-  let randomLat = clickedLat;
-  let randomLng = clickedLng;
-
-  // Checks if user has clicked the START button
-  if (randomLat === undefined || randomLng === undefined) {
-    alert("Please click the START button");
-  }
-  // Checks if both coordinates fully match
-  else if (clickedLat === randomLat && clickedLng === randomLng) {
-    alert("Winner! The coordinates match!");
-  }
-  // Checks if only the latitude matches
-  else if (clickedLat === randomLat && clickedLng !== randomLng) {
-    alert("The Latitude matches! Try again to match the Longitude!");
-  } // Check if only the longitude matches
-  else if (clickedLng === randomLng && clickedLat != randomLat) {
-    alert("The Longitude matches! Try again to match the Latitude!");
-  }
-  // Checks if the latitude or longitude match to the nearest 2 decimal place
-  else if (
-    clickedLat.toFixed(2) === randomLat.toFixed(2) ||
-    clickedLng.toFixed(2) === randomLng.toFixed(2)
-  ) {
-    alert("That was close, try again!");
-  } // Else returns does not match
-  else {
-    alert("That was not close! Try again!");
-  }
-}
-mymap.on("click", onMapClick);

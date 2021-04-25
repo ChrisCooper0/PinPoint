@@ -1,10 +1,16 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-family: "Lato", sans-serif;
 }
+
+$lightbg: white;
+$lightfont: black;
+$darkbg: hsl(0, 0%, 20%);
+$darkfont: hsl(0, 0%, 80%);
+$blue: #4691f6;
+$grey: hsl(0, 0%, 50%);
 
 input[type="checkbox"] {
   height: 0;
@@ -17,7 +23,7 @@ label {
   text-indent: -9999px;
   width: 55px;
   height: 27px;
-  background: #333333;
+  background: $darkbg;
   float: right;
   border-radius: 100px;
   position: relative;
@@ -32,21 +38,19 @@ label:after {
   left: 3px;
   width: 20px;
   height: 20px;
-  background: white;
+  background: $lightbg;
   border-radius: 90px;
-  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
 input:checked + label {
-  background: white;
+  background: $lightbg;
 }
 
 input:checked + label:after {
   left: calc(100% - 5px);
-  -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
-  background: #333333;
+  transform: translateX(-100%);
+  background: hsl(0, 0%, 20%);
 }
 
 label:active:after {
@@ -54,8 +58,8 @@ label:active:after {
 }
 
 html[data-theme="dark"] {
-  color: #cccccc;
-  background-color: #333333;
+  color: $darkfont;
+  background-color: $darkbg;
 }
 
 #mapid {
@@ -93,24 +97,18 @@ html[data-theme="dark"] {
 .svg-icon path,
 .svg-icon polygon,
 .svg-icon rect {
-  fill: #4691f6;
+  fill: $blue;
 }
 
 .svg-icon circle {
-  stroke: #4691f6;
+  stroke: $blue;
   stroke-width: 1;
 }
 
 .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
 }
 
@@ -120,7 +118,7 @@ html[data-theme="dark"] {
 }
 
 button {
-  border: 1px solid gray;
+  border: 1px solid $grey;
   border-radius: 3px;
   padding: 3px 6px;
 }
@@ -130,13 +128,13 @@ button {
 }
 
 .buttonlight {
-  background-color: white;
+  background-color: $lightbg;
 }
 
 .buttondark {
-  background-color: gray;
+  background-color: $grey;
   border: none;
-  color: #cccccc;
+  color: $darkfont;
 }
 
 .instructions {
@@ -161,4 +159,3 @@ button {
 .display {
   display: none;
 }
-/*# sourceMappingURL=style.css.map */

@@ -101,7 +101,7 @@ let locationArr = [
     Lng: -0.0984,
   },
   {
-    Name: "Palace of Westminster",
+    Name: "Westminster Palace",
     Lat: 51.4995,
     Lng: -0.1248,
   },

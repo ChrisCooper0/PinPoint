@@ -27,8 +27,10 @@ checkbox.addEventListener("change", function () {
     document.documentElement.setAttribute("data-theme", "dark");
     button.classList.remove("buttonlight");
     refreshBtn.classList.remove("buttonlight");
+    revealBtn.classList.remove("buttonlight");
     button.classList.add("buttondark");
     refreshBtn.classList.add("buttondark");
+    revealBtn.classList.add("buttondark");
 
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -45,8 +47,10 @@ checkbox.addEventListener("change", function () {
     document.documentElement.setAttribute("data-theme", "light");
     button.classList.remove("buttondark");
     refreshBtn.classList.remove("buttondark");
+    revealBtn.classList.remove("buttondark");
     button.classList.add("buttonlight");
     refreshBtn.classList.add("buttonlight");
+    revealBtn.classList.add("buttonlight");
 
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -113,6 +117,7 @@ function updateUI() {
   const addCoordinates = document.getElementById("coordinates");
   const button = document.getElementById("btn");
   const refreshBtn = document.getElementById("refreshBtn");
+  const revealBtn = document.getElementById("revealBtn");
 
   button.addEventListener("click", () => {
     // Get random number from array length
@@ -146,13 +151,25 @@ function updateUI() {
     // Removes START button
     button.classList.add("display");
 
-    // Displays TRY AGAIN button
+    // Displays PLAY AGAIN button
     refreshBtn.classList.remove("display");
 
     // Refreshes page to display START button
     refreshBtn.addEventListener("click", () => {
       location.reload();
       return false;
+    });
+
+    // Reveal random location button
+    revealBtn.classList.remove("display");
+
+    // Adds random location marker to map
+    revealBtn.addEventListener("click", () => {
+      L.marker([parseFloat(`${randomLat4DP}`), parseFloat(`${randomLng4DP}`)])
+        .setOpacity(0.75)
+        .addTo(mymap);
+      // Disables reveal button after first click
+      document.getElementById("revealBtn").disabled = true;
     });
 
     // Pop-up of clicked coordinates on map
@@ -167,9 +184,7 @@ function updateUI() {
       popup
         .setLatLng(e.latlng)
         .setContent(
-          `You clicked the map at ${clickedLat.toFixed(
-            3
-          )}, ${clickedLng.toFixed(3)}`
+          `You clicked at ${clickedLat.toFixed(3)}, ${clickedLng.toFixed(3)}`
         )
         .openOn(mymap);
 
@@ -208,5 +223,4 @@ function updateUI() {
     mymap.on("click", onMapClick);
   });
 }
-
 updateUI();
